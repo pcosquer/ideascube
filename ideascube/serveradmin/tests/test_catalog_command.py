@@ -101,7 +101,9 @@ def test_cannot_add_duplicate_remote(tmpdir, settings, monkeypatch, capsys):
         remote['url'])
 
     out, _ = capsys.readouterr()
-    assert out == 'Not adding already existing remote: "{}"\n'.format(remote['id'])
+    assert out.strip() == (
+        'Not adding already existing remote (id: {id!r}, url: {url!r})'
+        .format(**remote))
 
     # But should fail with different urls.
     with pytest.raises(CommandError):
