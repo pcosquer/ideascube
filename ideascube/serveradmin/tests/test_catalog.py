@@ -765,6 +765,12 @@ def test_catalog_add_remotes():
     assert 'foo' in exc.exconly()
     assert 'http://foo.fr/catalog.yml' in exc.exconly()
 
+    with pytest.raises(ExistingRemoteError) as exc:
+        c.add_remote('baz', 'Content by Baz', 'http://foo.fr/catalog.yml')
+
+    assert 'foo' in exc.exconly()
+    assert 'http://foo.fr/catalog.yml' in exc.exconly()
+
 
 def test_catalog_remove_remote(settings):
     from ideascube.serveradmin.catalog import Catalog

@@ -105,6 +105,16 @@ def test_cannot_add_duplicate_remote(tmpdir, settings, monkeypatch, capsys):
         'Not adding already existing remote (id: {id!r}, url: {url!r})'
         .format(**remote))
 
+    # Adding a remote with different id but the same url should be ignored
+    call_command(
+        'catalog', 'remotes', 'add', remote['id'] + '2', remote['name'],
+        remote['url'])
+
+    out, _ = capsys.readouterr()
+    assert out.strip() == (
+        "Not adding already existing remote (id: 'foo2', url: {!r})"
+        .format(remote['url']))
+
     # Adding a remote with the same id but different url should fail
     with pytest.raises(CommandError):
         call_command(
