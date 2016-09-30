@@ -81,7 +81,9 @@ class ExistingRemoteError(Exception):
         self.remote = remote
 
     def __str__(self):
-        return "Remote {} already exists".format(self.remote.id)
+        return (
+            'Remote already exists: id={0.id!r}, url={0.url!r}'
+            .format(self.remote))
 
 
 class Remote:

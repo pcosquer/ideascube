@@ -763,6 +763,7 @@ def test_catalog_add_remotes():
         c.add_remote('foo', 'Content by Foo', 'http://foo.fr/catalog.yml')
 
     assert 'foo' in exc.exconly()
+    assert 'http://foo.fr/catalog.yml' in exc.exconly()
 
 
 def test_catalog_remove_remote(settings):
